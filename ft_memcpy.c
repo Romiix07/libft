@@ -6,7 +6,7 @@
 /*   By: romain <rmouduri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 10:59:10 by romain            #+#    #+#             */
-/*   Updated: 2020/11/16 22:05:33 by romain           ###   ########.fr       */
+/*   Updated: 2020/11/20 22:09:31 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 
 	destcpy = dest;
 	srccpy = src;
+	if (!destcpy || !srccpy)
+		return (NULL);
 	i = -1;
 	while (++i < n)
 		destcpy[i] = srccpy[i];

@@ -6,7 +6,7 @@
 /*   By: romain <rmouduri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:46:33 by romain            #+#    #+#             */
-/*   Updated: 2020/11/20 18:32:45 by romain           ###   ########.fr       */
+/*   Updated: 2020/11/20 21:54:43 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,36 @@ static int		isset(char c, const char *set)
 	return (0);
 }
 
-static void		get_values(char const *s1, char const *set, int *i, int *limit)
+static char		*get_trim(const char *s, int start, int end)
 {
-	*i = 0;
-	while (s1[*i] && isset(s1[*i], set))
-		++*i;
-	*limit = ft_strlen(s1);
-	if (s1[*i] && *limit && isset(s1[*limit - 1], set))
-		while (isset(s1[*limit - 1], set))
-			--*limit;
+	char	*trim;
+	int		i;
+	int		size;
+
+	size = (ft_strlen(s) - start) - (ft_strlen(s) - end);
+	if ((trim = malloc(sizeof(char) * (size + 1))) == NULL)
+		return (NULL);
+	i = -1;
+	while (s[start] && start < end)
+		trim[++i] = s[start++];
+	trim[++i] = '\0';
+	return (trim);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char			*ft_strtrim(const char *s, const char *set)
 {
-	size_t	len;
-	int		i;
-	int		j;
-	int		limit;
-	char	*trim;
+	int		start;
+	int		end;
 
-	if (s1 == NULL)
+	if (!s)
 		return (NULL);
-	get_values(s1, set, &i, &limit);
-	j = i;
-	len = 0;
-	while (s1[j] && !isset(s1[j++], set))
-		++len;
-	if ((trim = malloc(sizeof(char) * (len + 1))) == NULL)
-		return (NULL);
-	j = -1;
-	while (s1[i] && i < limit)
-		trim[++j] = s1[i++];
-	trim[++j] = '\0';
-	return (trim);
+	start = 0;
+	while (s[start] && isset(s[start], set))
+		++start;
+	end = ft_strlen(s);
+	while (end > 0 && isset(s[end - 1], set))
+		--end;
+	if (end < start)
+		end = start;
+	return (get_trim(s, start, end));
 }
