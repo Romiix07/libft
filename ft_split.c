@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 09:58:50 by rmouduri          #+#    #+#             */
-/*   Updated: 2020/11/19 12:29:52 by romain           ###   ########.fr       */
+/*   Updated: 2020/11/20 17:42:07 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ static char	*strdup_charset(char *str, char c)
 		i++;
 		size++;
 	}
-	if (i > 0)
-		strdup = malloc(sizeof(char) * size);
-	else
+	if (i <= 0 || (strdup = malloc(sizeof(char) * size)) == NULL)
 		return (NULL);
 	i = 0;
 	while (str[i] && str[i] != c)

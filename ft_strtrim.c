@@ -6,7 +6,7 @@
 /*   By: romain <rmouduri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:46:33 by romain            #+#    #+#             */
-/*   Updated: 2020/11/17 17:02:02 by romain           ###   ########.fr       */
+/*   Updated: 2020/11/20 18:32:45 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,11 @@ static int		isset(char c, const char *set)
 
 static void		get_values(char const *s1, char const *set, int *i, int *limit)
 {
-	int	tmp;
-
 	*i = 0;
-	while (isset(s1[*i], set))
+	while (s1[*i] && isset(s1[*i], set))
 		++*i;
-	tmp = *i;
 	*limit = ft_strlen(s1);
-	if (isset(s1[*limit - 1], set))
+	if (s1[*i] && *limit && isset(s1[*limit - 1], set))
 		while (isset(s1[*limit - 1], set))
 			--*limit;
 }
@@ -53,7 +50,7 @@ char			*ft_strtrim(char const *s1, char const *set)
 	get_values(s1, set, &i, &limit);
 	j = i;
 	len = 0;
-	while (!isset(s1[j++], set))
+	while (s1[j] && !isset(s1[j++], set))
 		++len;
 	if ((trim = malloc(sizeof(char) * (len + 1))) == NULL)
 		return (NULL);

@@ -22,7 +22,7 @@ CC			=	clang
 RM			=	rm -f
 
 .c.o:
-				${CC} ${CFLAG} -c -I${INCLUDES} $< -o ${<:.c=.o}
+				${CC} ${CFLAGS} -c -I${INCLUDES} $< -o ${<:.c=.o}
 
 $(NAME):		${OBJS}
 				ar rc ${NAME} ${OBJS}
